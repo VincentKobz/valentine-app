@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Pacifico&display=swap');
+@import "tailwindcss";
+
+@layer base {
+  body {
+    background-color: #fdf2f8;
+    /* pink-50 fallback */
+    background-image: radial-gradient(#fbcfe8 1px, transparent 1px), radial-gradient(#fbcfe8 1px, transparent 1px);
+    background-position: 0 0, 25px 25px;
+    background-size: 50px 50px;
+
+    @apply min-h-screen text-slate-800 font-sans antialiased selection:bg-rose-200 selection:text-rose-900;
+    font-family: 'Nunito', sans-serif;
+  }
+
+  h1,
+  h2,
+  h3,
+  .font-heading {
+    font-family: 'Pacifico', cursive;
+  }
+}
