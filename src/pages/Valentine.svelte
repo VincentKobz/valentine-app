@@ -1,30 +1,15 @@
 <script>
+  import { t } from "../lib/i18n";
   export let partnerName = "Love";
 
   let answered = false;
   let noCount = 0;
+  let noButtonStyle = "";
 
   $: decodedName = decodeURIComponent(partnerName);
 
   // Dynamic phrases for the No button
-  const phrases = [
-    "No",
-    "Are you sure?",
-    "Really sure?",
-    "Think again!",
-    "Last chance!",
-    "Surely not?",
-    "You might regret this!",
-    "Give it another thought!",
-    "Are you absolutely certain?",
-    "This could be a mistake!",
-    "Have a heart!",
-    "Don't be so cold!",
-    "Change of heart?",
-    "Wouldn't you reconsider?",
-    "Is that your final answer?",
-    "You're breaking my heart ;(",
-  ];
+  $: phrases = $t("noPhrases");
 
   function handleNo() {
     noCount++;
@@ -37,6 +22,15 @@
   function getNoButtonText() {
     return phrases[Math.min(noCount, phrases.length - 1)];
   }
+
+  function moveNoButton() {
+    const maxX = window.innerWidth - 150;
+    const maxY = window.innerHeight - 60;
+    const randomX = Math.floor(Math.random() * maxX);
+    const randomY = Math.floor(Math.random() * maxY);
+    noButtonStyle = `position: fixed; left: ${randomX}px; top: ${randomY}px; z-index: 50;`;
+    noCount++;
+  }
 </script>
 
 <div
@@ -47,18 +41,15 @@
     <div class="space-y-8 relative">
       <div>
         <img
-          src="https://media.tenor.com/VIChDQ6ejRQAAAAi/jumping-bear-hearts-no-png.gif"
-          alt="Cute Bear"
+          src="https://media.tenor.com/ogsClPgCYcAAAAAi/mochi-mochi-mochi.gif"
+          alt="Cute Cat"
           class="h-[200px] mx-auto object-contain drop-shadow-xl hover:scale-105 transition-transform duration-300"
         />
         <h1
           class="text-4xl md:text-6xl text-rose-500 font-heading mt-6 leading-tight drop-shadow-sm"
         >
-          Will you be my Valentine?
+          {decodedName}, {$t("valentine.question")}
         </h1>
-        <p class="text-2xl text-rose-400 font-bold mt-2">
-          {decodedName}
-        </p>
       </div>
 
       <div class="flex flex-wrap justify-center items-center gap-4 mt-8">
@@ -68,11 +59,13 @@
             16}px {noCount * 20 + 32}px;"
           on:click={handleYes}
         >
-          Yes
+          {$t("valentine.yes")}
         </button>
 
         <button
           class="bg-rose-500 hover:bg-rose-600 text-white font-bold rounded-xl px-8 py-4 shadow-[0_4px_0_0_#be123c] active:shadow-none active:translate-y-1 transition-all"
+          style={noButtonStyle}
+          on:mouseenter={moveNoButton}
           on:click={handleNo}
         >
           {getNoButtonText()}
@@ -83,23 +76,16 @@
     <!-- Success Phase -->
     <div class="space-y-6 animate-zoom-in">
       <img
-        src="https://media.tenor.com/f1xnRxTRxLAAAAAi/bears-hugging-hug.gif"
-        alt="Bears Hugging"
+        src="https://media.tenor.com/Vya70Sb84voAAAAi/mochi-mochi-peach-cat-gif-hug.gif"
+        alt="Cats Hugging"
         class="h-[300px] mx-auto object-contain drop-shadow-2xl"
       />
       <h1 class="text-5xl md:text-7xl text-rose-600 font-heading leading-tight">
-        Yaaay!!!
+        {$t("valentine.successTitle")}
       </h1>
       <p class="text-2xl text-rose-400 font-bold">
-        I knew you would say yes! 🥰
+        {$t("valentine.successMessage")}
       </p>
-
-      <button
-        class="mt-8 text-rose-400 hover:text-rose-600 font-bold underline"
-        on:click={() => (window.location.href = "/")}
-      >
-        Make your own
-      </button>
     </div>
   {/if}
 </div>

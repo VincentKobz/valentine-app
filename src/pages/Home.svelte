@@ -1,4 +1,6 @@
 <script>
+  import { t } from "../lib/i18n";
+
   let partnerName = "";
   let generatedUrl = "";
   let copied = false;
@@ -25,9 +27,9 @@
     <div class="space-y-4">
       <div class="text-5xl animate-bounce">💌</div>
       <h1 class="text-4xl text-rose-500 font-heading leading-tight">
-        Make a Valentine
+        {$t("home.header")}
       </h1>
-      <p class="text-rose-400 font-bold text-lg">Simple. Cute. Forever.</p>
+      <p class="text-rose-400 font-bold text-lg">{$t("home.subheader")}</p>
     </div>
 
     <!-- Input Section -->
@@ -37,13 +39,13 @@
           for="name"
           class="block text-rose-400 font-black uppercase text-xs tracking-widest ml-1"
         >
-          Who is it for?
+          {$t("home.label")}
         </label>
         <input
           type="text"
           id="name"
           bind:value={partnerName}
-          placeholder="e.g. My Crush"
+          placeholder={$t("home.placeholder")}
           class="w-full bg-white border-2 border-rose-100 rounded-xl px-4 py-3 text-lg font-bold text-rose-500 placeholder:text-rose-200 focus:outline-none focus:border-rose-400 focus:ring-4 focus:ring-rose-100 transition-all"
         />
       </div>
@@ -53,7 +55,7 @@
         disabled={!partnerName.trim()}
         class="w-full bg-rose-500 hover:bg-rose-600 active:translate-y-1 active:shadow-none text-white font-black text-xl py-4 rounded-xl shadow-[0_4px_0_0_#be123c] transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none disabled:bg-rose-300"
       >
-        Create Link 💖
+        {$t("home.button")}
       </button>
     </div>
 
@@ -62,10 +64,10 @@
       <div
         class="pt-6 border-t-2 border-rose-100/50 space-y-4 animation-slide-up"
       >
-        <p class="text-rose-400 font-bold">Here is your special link:</p>
+        <p class="text-rose-400 font-bold">{$t("home.result")}</p>
 
         <div
-          class="bg-white p-2 rounded-lg border-2 border-rose-100 flex gap-2"
+          class="bg-white p-2 rounded-lg border-2 border-rose-100 flex flex-col sm:flex-row gap-2"
         >
           <input
             readonly
@@ -76,7 +78,7 @@
             on:click={copyToClipboard}
             class="bg-rose-100 hover:bg-rose-200 text-rose-600 px-4 py-2 rounded-md font-bold text-sm transition-colors"
           >
-            {#if copied}Copied!{:else}Copy{/if}
+            {#if copied}{$t("home.copied")}{:else}{$t("home.copy")}{/if}
           </button>
         </div>
       </div>
